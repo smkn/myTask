@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>myTask</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, address=no, email=no">
+
+<style>
+html{overflow-y:scroll;box-sizing:border-box}body{line-height:1;-webkit-text-size-adjust:100%;word-break:break-all;word-wrap:break-word;text-justify:inter-ideograph;text-align:justify}article,aside,audio,canvas,details,figcaption,figure,footer,header,main,menu,nav,progress,section,video{display:block}html,body,address,article,aside,audio,blockquote,canvas,dd,details,div,dl,dt,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,li,main,nav,ol,p,pre,section,table,ul,video{margin:0;padding:0;font-family:inherit;font-size:100%;font-style:normal;font-weight:normal;vertical-align:baseline;border:0;outline:0;background-color:transparent}a,caption,del,embed,iframe,img,label,legend,mark,object,ruby,small,span,sub,sup,svg,td,th,time,tr{margin:0;padding:0;font-family:inherit;font-size:100%;font-style:inherit;font-weight:inherit;vertical-align:baseline;border:0;outline:0;background-color:transparent}img,svg{vertical-align:bottom;font-size:0;line-height:0}button,input,textarea,select{margin:0;padding:0;font-family:inherit;font-size:100%;font-style:normal;font-weight:normal;vertical-align:middle;border-radius:0;border:1px solid #999;line-height:inherit}sup{vertical-align:text-top}sub{vertical-align:text-bottom}del{text-decoration:line-through}b,em,strong{font-weight:bold}table{border-collapse:collapse;border-spacing:0;width:100%;table-layout:fixed}caption,th{text-align:left}ol,ul{list-style:none}blockquote{quotes:none}blockquote::before,blockquote::after{content:'';content:none}:focus{outline:0}input::-moz-focus-inner{padding:0;border:0}*,*::before,*::after{box-sizing:inherit}
+
+body {
+	background-color: #f3f3f3;
+	color: #222;
+	font: 14px/1.6 Ubuntu, Verdana, "メイリオ", Meiryo, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ ProN W3", sans-serif;
+	text-justify: inter-ideograph;
+	text-align: justify;
+}
+a{color:#38b5cb}
+#wrap {
+	position: relative;
+}
+nav{
+	width: 200px;
+	height: 100vh;
+	position: fixed;
+	padding: 10px 0;
+	background-color: #474747;
+	color: #f9f9f9;
+	line-height: 1;
+	font-family: 'Belleza', sans-serif;
+}
+nav h1{
+	text-align: center;
+	font-size: 54px;
+	text-shadow: 1px 1px 1px #292929, 0px 0px 10px #a9a9a9;
+	margin-bottom: 20px;
+}
+nav a{
+	color: #f9f9f9;
+	text-decoration: none;
+	padding: 10px 20px;
+	display: block;
+	font-size: 18px;
+	letter-spacing: 2px;
+	text-shadow: 1px 1px 1px #101010;
+}
+#nav_tasks:hover, .current #nav_tasks{
+	border-right: 5px solid #17b4d5;
+}
+#nav_receipts:hover, .current #nav_receipts{
+	border-right: 5px solid #09cd49;
+}
+#nav_monthly:hover, .current #nav_monthly{
+	border-right: 5px solid #b4d517;
+}
+#nav_client:hover, .current #nav_client{
+	border-right: 5px solid #ebc40b;
+}
+article{
+	width: calc(100vw - 220px);
+	position: relative;
+	left: 200px;
+	top: 0;
+	padding: 20px;
+}
+article header h2{
+	font-size: 36px;
+	letter-spacing: 2px;
+	font-family: 'Belleza', sans-serif;
+	padding-bottom: 5px;
+	line-height: 1;
+}
+#section_tasks h2{
+	border-bottom: 2px solid #17b4d5;
+}
+#section_receipts h2{
+	border-bottom: 2px solid #09cd49;
+}
+#section_monthly h2{
+	border-bottom: 2px solid #b4d517;
+}
+#section_client h2{
+	border-bottom: 2px solid #ebc40b;
+}
+article header{
+	margin-bottom: 10px;
+}
+article header ul{
+	font-size: 0;
+	text-align: right;
+	margin-top: 5px;
+}
+article header li{
+	display: inline-block;
+}
+article header li a{
+	font-size: 12px;
+	display: block;
+	margin-left: 5px;
+	color: #fff;
+	padding: 5px 20px;
+	border-radius: 6px;
+	text-decoration: none;
+}
+article header li a:hover{
+	color: #fff;
+	opacity: .7;
+}
+#section_tasks header li a{
+	background-color: #17b4d5;
+}
+#section_receipts header li a{
+	background-color: #09cd49;
+}
+#section_monthly header li a{
+	background-color: #b4d517;
+}
+#section_client header li a{
+	background-color: #ebc40b;
+}
+
+article section{
+	margin-bottom: 20px;
+}
+article section > div{
+	border: 1px solid #dbdbdb;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 6px;
+}
+article section > div h3{
+	font-size: 20px;
+	margin-bottom: 5px;
+	padding-left: 10px;
+	line-height: 1.2;
+}
+#section_tasks > div h3{
+	border-left: 5px solid #17b4d5;
+}
+#section_receipts > div h3{
+	border-left: 5px solid #09cd49;
+}
+#section_monthly > div h3{
+	border-left: 5px solid #b4d517;
+}
+#section_client > div h3{
+	border-left: 5px solid #ebc40b;
+}
+article section > div > p{
+	font-size: 12px;
+	color: #818181;
+	margin-bottom: 15px;
+}
+article section > div > p span{
+	margin-right: 10px;
+}
+
+section aside{
+	margin-top: 10px;
+}
+section aside ul{
+	font-size: 0;
+	text-align: right;
+	margin-top: 5px;
+}
+section aside li{
+	display: inline-block;
+}
+section aside li a{
+	font-size: 12px;
+	display: block;
+	margin-left: 5px;
+	color: #fff;
+	padding: 5px 20px;
+	border-radius: 6px;
+	text-decoration: none;
+}
+section aside li a:hover{
+	color: #fff;
+	opacity: .7;
+}
+#section_tasks aside li a{
+	background-color: #17b4d5;
+}
+#section_receipts aside li a{
+	background-color: #09cd49;
+}
+#section_monthly aside li a{
+	background-color: #b4d517;
+}
+#section_client aside li a{
+	background-color: #ebc40b;
+}
+
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700|Belleza">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
+</head>
+<body>
+<div id="wrap">
+
+<nav>
+	<h1>myTask</h1>
+	<ul>
+		<li class="current"><a href="#" id="nav_tasks"><i class="fa fa-pencil-square-o"></i> Tasks</a></li>
+		<li><a href="#" id="nav_receipts"><i class="fa fa-trophy"></i> Receipts</a></li>
+		<li><a href="#" id="nav_monthly"><i class="fa fa-calendar-check-o"></i> Monthly</a></li>
+		<li><a href="#" id="nav_client"><i class="fa fa-address-book-o"></i> Client</a></li>
+	</ul>
+</nav>
+
+<article>
+	<section id="section_tasks">
+		<header>
+			<h2><i class="fa fa-pencil-square-o"></i> Tasks</h2>
+			<ul>
+				<li><a href="#"><i class="fa fa-plus-square"></i> 追加</a></li>
+			</ul>
+		</header>
+
+		<div>
+			<h3>見出しのレベルで暗示的にセクションができる</h3>
+			<p><span><i class="fa fa-address-book-o"></i> 株式会社エスプトオトン</span><span><i class="fa fa-clock-o"></i> 2018.01/23 12:34:56</span></p>
+			<div>
+				色は匂へど散りぬるを、我が世たれぞ常ならむ。有為の奥山今日越えて、浅き夢見じ酔ひもせず。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。色は匂へど散りぬるを、我が世たれぞ常ならむ。有為の奥山今日越えて、浅き夢見じ酔ひもせず。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。
+			</div>
+
+			<aside>
+				<ul>
+					<li><a href="#"><i class="fa fa-pencil"></i> 編集</a></li>
+					<li><a href="#"><i class="fa fa-check-square-o"></i> 完了</a></li>
+					<li><a href="#"><i class="fa fa-eraser"></i> 削除</a></li>
+				</ul>
+			</aside>
+		</div>
+	</section>
+
+	<section id="section_receipts">
+		<header>
+			<h2><i class="fa fa-trophy"></i> Receipts</h2>
+		</header>
+
+		<div>
+			<h3>たいとるーーたいとるーー</h3>
+			<p><span><i class="fa fa-address-book-o"></i> 株式会社エスプトオトン</span><span><i class="fa fa-clock-o"></i> 2018.01/23 12:34:56</span></p>
+			<div>
+				いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。
+			</div>
+
+			<aside>
+				<ul>
+					<li><a href="#"><i class="fa fa-pencil"></i> 編集</a></li>
+					<li><a href="#"><i class="fa fa-share"></i> タスクに戻す</a></li>
+					<li><a href="#"><i class="fa fa-check-square-o"></i> 過去ログ化</a></li>
+					<li><a href="#"><i class="fa fa-eraser"></i> 削除</a></li>
+				</ul>
+			</aside>
+		</div>
+	</section>
+
+	<section id="section_monthly">
+		<header>
+			<h2><i class="fa fa-calendar-check-o"></i> Monthly</h2>
+			<ul>
+				<li><a href="#"><i class="fa fa-plus-square"></i> 追加</a></li>
+			</ul>
+		</header>
+
+		<div>
+			<h3>たいとるーーたいとるーー</h3>
+			<p><span><i class="fa fa-address-book-o"></i> 株式会社エスプトオトン</span><span><i class="fa fa-clock-o"></i> 2018.01/23 12:34:56</span></p>
+			<div>
+				いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。
+			</div>
+
+			<aside>
+				<ul>
+					<li><a href="#"><i class="fa fa-pencil"></i> 編集</a></li>
+					<li><a href="#"><i class="fa fa-eraser"></i> 削除</a></li>
+				</ul>
+			</aside>
+		</div>
+	</section>
+
+	<section id="section_client">
+		<header>
+			<h2><i class="fa fa-address-book-o"></i> Client</h2>
+			<ul>
+				<li><a href="#"><i class="fa fa-plus-square"></i> 追加</a></li>
+			</ul>
+		</header>
+
+		<div>
+			<h3>たいとるーーたいとるーー</h3>
+			<p><span><i class="fa fa-address-book-o"></i> 株式会社エスプトオトン</span><span><i class="fa fa-clock-o"></i> 2018.01/23 12:34:56</span></p>
+			<div>
+				いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。
+			</div>
+
+			<aside>
+				<ul>
+					<li><a href="#"><i class="fa fa-pencil"></i> 編集</a></li>
+					<li><a href="#"><i class="fa fa-eraser"></i> 削除</a></li>
+				</ul>
+			</aside>
+		</div>
+	</section>
+
+<form action="" method ="post" enctype="multipart/form-data">
+	E-mail:<input type="email" placeholder="メールアドレス" required="required"><br>
+	TEL：<input type="tel"><br>
+	URL：<input type="url"><br>
+	password<input type="password"><br>
+	search:<input type="search"><br>
+
+	file:
+	<label class="file_upload">
+	<span>ファイルを選択</span>
+	<p></p>
+	<input type="file" name="file" onchange="$(this).prev('p').text($(this).prop('files')[0].name);" />
+	</label>
+
+
+	date:c,o<input type="date"><br>
+	time:c,o<input type="time"><br>
+	number:f,c,o<input type="number"><br>
+	range:i,f,c,o<input type="range" min="0" max="10" value="5"><br>
+	color:f,c,o<input type="color"><br>
+
+	list:i,f,c,o<input type="text" list="fruits"><br>
+	<datalist id="fruits">
+		<option value="Apple"></option>
+		<option value="Banana"></option>
+		<option value="Orange"></option>
+	</datalist><br>
+
+	<label><input type="radio" name="inq_part" value="店舗について" checked='checked'  />店舗について</label>
+	<label><input type="radio" name="inq_part" value="FC募集について"  />FC募集について</label>
+	<label><input type="radio" name="inq_part" value="その他"  />その他</label><br>
+
+	<select name="select">
+		<option value="Apple">Apple</option>
+		<option value="Banana">Banana</option>
+		<option value="Orange">Orange</option>
+	</select><br>
+
+	<input type="image" src="http://smkn.xsrv.jp/blog/wp-content/themes/third_kiosk/img/logo/header_logo.png" alt="" formnovalidate="formnovalidate"><br>
+	<input type="submit" value="検索" formnovalidate="formnovalidate">
+</form>
+
+	<footer>Copyright &copy; 2016- <a href="http://www.kiki-verb.com/" target="_blank">kiki-verb.com</a>. All Rights Reserved.</footer>
+</article>
+
+
+
+
+
+
+<div id="app">
+	<router-link to="/top">トップページ</router-link>
+	<router-link to="/users">ユーザー一覧ページ</router-link>
+	<router-view></router-view>
+</div>
+
+<div id="todoApp">
+	<h2 v-bind:style="fontStyle">{{ title }}</h2>
+	<input type="text" v-model="todo" v-on:keyup.enter="addTodo">
+	<div>
+		<div v-for="t in todos" v-bind:key="t.id" v-bind:class="['todo-default', t.doing ? 'todo-doing' : '']" v-on:click="begin(t)">
+			{{t.name}}
+		</div>
+	</div>
+</div>
+
+
+
+
+</div>
+<script>
+/*
+  // ルートオプションを渡してルーターインスタンスを生成します
+  var router = new VueRouter({
+    // 各ルートにコンポーネントをマッピングします
+    // コンポーネントはVue.extend() によって作られたコンポーネントコンストラクタでも
+    // コンポーネントオプションのオブジェクトでも構いません
+    routes: [
+      {
+        path: '/top',
+        component: {
+          template: '<div>トップページです。</div>'
+        }
+      },
+      {
+        path: '/users',
+        component: {
+          template: '<div>ユーザー一覧ページです。</div>'
+        }
+      }
+    ]
+  })
+
+  // ルーターのインスタンスをrootとなるVueインスタンスに渡します
+  var vm = new Vue({
+    router: router
+  }).$mount('#app')
+*/
+  var app = new Vue({
+  el: '#todoApp',
+  data: {
+    title: "Welcome to Vue.js",
+    fontStyle: {
+        fontSize: "20px",
+    },
+    todo: "",
+    todos: []
+  },
+  methods: {
+    addTodo: function() {
+        this.todos.push({
+        id: this.todos.length,
+        name: this.todo,
+        doing: false
+      })
+      this.todo = ""
+    },
+    begin: function(todo){
+        todo.doing = !todo.doing;
+    }
+  }
+});
+</script>
+</body>
+</html>
