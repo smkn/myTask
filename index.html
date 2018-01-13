@@ -20,16 +20,16 @@
 <nav>
 	<h1>myTask</h1>
 	<ul>
-		<li v-bind:class="{current: isActiveTasks}"><a href="#" id="nav-tasks" v-on:click.prevent="showTemplate('tasks')"><i class="fa fa-pencil-square-o"></i> Tasks</a></li>
-		<li v-bind:class="{current: isActiveReceipts}"><a href="#" id="nav-receipts" v-on:click.prevent="showTemplate('receipts')"><i class="fa fa-trophy"></i> Receipts</a></li>
-		<li v-bind:class="{current: isActiveMonthly}"><a href="#" id="nav-monthly" v-on:click.prevent="showTemplate('monthly')"><i class="fa fa-calendar-check-o"></i> Monthly</a></li>
+		<li v-bind:class="{current: showTemplate === 'tasks'}"><a href="#" id="nav-tasks" v-on:click.prevent="selectTemplate('tasks')"><i class="fa fa-pencil-square-o"></i> Tasks</a></li>
+		<li v-bind:class="{current: showTemplate === 'receipts'}"><a href="#" id="nav-receipts" v-on:click.prevent="selectTemplate('receipts')"><i class="fa fa-trophy"></i> Receipts</a></li>
+		<li v-bind:class="{current: showTemplate === 'monthly'}"><a href="#" id="nav-monthly" v-on:click.prevent="selectTemplate('monthly')"><i class="fa fa-calendar-check-o"></i> Monthly</a></li>
 	</ul>
 </nav>
 
 <article>
-	<tasks v-if="showTask" v-bind:message="message"></tasks>
-	<receipts v-if="showReceipts"></receipts>
-	<monthly v-if="showMonthly"></monthly>
+	<tasks v-if="showTemplate === 'tasks'" v-on:show-modal="showModalData" message="おおああ"></tasks>
+	<receipts v-if="showTemplate === 'receipts'"></receipts>
+	<monthly v-if="showTemplate === 'monthly'" v-on:show-modal="showModalData"></monthly>
 
 
 	<footer>Copyright &copy; 2016- <a href="http://www.kiki-verb.com/" target="_blank">kiki-verb.com</a>. All Rights Reserved.</footer>
@@ -43,7 +43,7 @@
 		<header>
 			<h2><i class="fa fa-pencil-square-o"></i> Tasks</h2>
 			<ul>
-				<li><a href="#" v-on:click="showModal = true"><i class="fa fa-plus-square"></i> 追加</a></li>
+				<li><a href="#" v-on:click.prevent="$emit('show-modal')"><i class="fa fa-plus-square"></i> 追加</a></li>
 			</ul>
 		</header>
 		<div>
@@ -87,7 +87,7 @@
 		<header>
 			<h2><i class="fa fa-calendar-check-o"></i> Monthly</h2>
 			<ul>
-				<li><a href="#"><i class="fa fa-plus-square"></i> 追加</a></li>
+				<li><a href="#" v-on:click.prevent="$emit('show-modal')"><i class="fa fa-plus-square"></i> 追加</a></li>
 			</ul>
 		</header>
 
@@ -105,7 +105,7 @@
 	</section>
 </script>
 
-<modal v-if="showModal" v-on:close="showModal = false"></modal>
+<modal v-if="showModalFlag" v-on:close="showModalFlag = false"></modal>
 <script id="modal-template" type="text/x-template">
 	<transition name="modal">
 		<div class="modal-mask">
@@ -167,38 +167,20 @@ Vue.component('modal', {
 var vm = new Vue({
 	el: '#wrap',
 	data: {
-		showTask: true,
-		isActiveTasks: true,
-		showReceipts: false,
-		isActiveReceipts: false,
-		showMonthly: false,
-		isActiveMonthly: false,
+		showTemplate: 'tasks',
 
-		showModal: false,
+		showModalFlag: false,
 
 		message: 'TEST-TEST',
 		name: 'みかん',
 		price: 100
 	},
 	methods: {
-		showTemplate: function(target) {
-			this.showTask = false;
-			this.isActiveTasks = false;
-			this.showReceipts = false;
-			this.isActiveReceipts = false;
-			this.showMonthly = false;
-			this.isActiveMonthly = false;
-			if(target === 'tasks'){
-				this.showTask = true;
-				this.isActiveTasks = true;
-			} else if(target === 'receipts') {
-				this.showReceipts = true;
-				this.isActiveReceipts = true;
-			} else if(target === 'monthly') {
-				this.showMonthly = true;
-				this.isActiveMonthly = true;
-			}
-			return false;
+		selectTemplate: function(target) {
+			this.showTemplate = target;
+		},
+		showModalData(data) {
+			this.showModalFlag = true;
 		}
 	}
 });
