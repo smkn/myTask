@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700|Belleza">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -20,17 +21,14 @@
 <nav>
 	<h1>myTask</h1>
 	<ul>
-		<li v-bind:class="{current: isActiveTasks}"><a href="#" id="nav-tasks" v-on:click.prevent="showTemplate('tasks')"><i class="fa fa-pencil-square-o"></i> Tasks</a></li>
-		<li v-bind:class="{current: isActiveReceipts}"><a href="#" id="nav-receipts" v-on:click.prevent="showTemplate('receipts')"><i class="fa fa-trophy"></i> Receipts</a></li>
-		<li v-bind:class="{current: isActiveMonthly}"><a href="#" id="nav-monthly" v-on:click.prevent="showTemplate('monthly')"><i class="fa fa-calendar-check-o"></i> Monthly</a></li>
+		<router-link tag="li" to="/"><a href="/" id="nav-tasks"><i class="fa fa-pencil-square-o"></i> Tasks</a></router-link>
+		<router-link tag="li" to="/receipts"><a href="/receipts" id="nav-receipts"><i class="fa fa-trophy"></i> Receipts</a></router-link>
+		<router-link tag="li" to="/monthly"><a href="/monthly" id="nav-monthly"><i class="fa fa-calendar-check-o"></i> Monthly</a></router-link>
 	</ul>
 </nav>
 
 <article>
-	<tasks v-if="showTask" v-bind:message="message"></tasks>
-	<receipts v-if="showReceipts"></receipts>
-	<monthly v-if="showMonthly"></monthly>
-
+	<router-view></router-view>
 
 	<footer>Copyright &copy; 2016- <a href="http://www.kiki-verb.com/" target="_blank">kiki-verb.com</a>. All Rights Reserved.</footer>
 	<p>{{ name }} は {{ price }}円</p>
@@ -38,8 +36,9 @@
 
 
 
-<script id="template-tasks" type="text/x-template">
+<script id="section-tasks" type="text/x-template">
 	<section id="section-tasks">
+		<p>::{{ message }}::</p>
 		<header>
 			<h2><i class="fa fa-pencil-square-o"></i> Tasks</h2>
 			<ul>
@@ -47,7 +46,7 @@
 			</ul>
 		</header>
 		<div>
-			<h3>見出しのレベルで暗示的に::{{ message }}::ができる</h3>
+			<h3>見出しのレベルで暗示的にセクションができる</h3>
 			<p><span><i class="fa fa-address-book-o"></i> 株式会社エスプトオトン</span><span><i class="fa fa-clock-o"></i> 2018.01/23 12:34:56</span></p>
 			<div>色は匂へど散りぬるを、我が世たれぞ常ならむ。有為の奥山今日越えて、浅き夢見じ酔ひもせず。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。色は匂へど散りぬるを、我が世たれぞ常ならむ。有為の奥山今日越えて、浅き夢見じ酔ひもせず。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。</div>
 			<aside>
@@ -61,7 +60,7 @@
 	</section>
 </script>
 
-<script id="template-receipts" type="text/x-template">
+<script id="section-receipts" type="text/x-template">
 	<section id="section-receipts">
 		<header>
 			<h2><i class="fa fa-trophy"></i> Receipts</h2>
@@ -69,7 +68,7 @@
 		<div>
 			<h3>たいとるーーたいとるーー</h3>
 			<p><span><i class="fa fa-address-book-o"></i> 株式会社エスプトオトン</span><span><i class="fa fa-clock-o"></i> 2018.01/23 12:34:56</span></p>
-			<div>いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。</div>
+			<div>いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。</div>
 			<aside>
 				<ul>
 					<li><a href="#"><i class="fa fa-pencil"></i> 編集</a></li>
@@ -82,7 +81,7 @@
 	</section>
 </script>
 
-<script id="template-monthly" type="text/x-template">
+<script id="section-monthly" type="text/x-template">
 	<section id="section-monthly">
 		<header>
 			<h2><i class="fa fa-calendar-check-o"></i> Monthly</h2>
@@ -111,7 +110,7 @@
 		<div class="modal-mask">
 			<div class="modal-wrapper">
 				<div class="modal-container">
-					<form action="" method="post" class="form-wrap">
+					<form action="" method="post" class="form_wrap">
 						<div>
 							<h3>タイトル</h3>
 							<input type="text" name="title" value="">
@@ -146,60 +145,43 @@
 
 </div>
 <script>
-Vue.component('tasks', {
-	template: '#template-tasks',
-	props: ['message']
-})
-Vue.component('receipts', {
-	template: '#template-receipts',
-	props: ['message']
-})
-Vue.component('monthly', {
-	template: '#template-monthly',
-	props: ['message']
-})
-
 Vue.component('modal', {
 	template: '#modal-template'
 });
 
+var router = new VueRouter({
+	routes: [
+		{
+			path: '/',
+			component: {
+				template: '#section-tasks'
+			}
+		},
+		{
+			path: '/receipts',
+			component: {
+				template: '#section-receipts'
+			}
+		},
+		{
+			path: '/monthly',
+			component: {
+				template: '#section-monthly'
+			}
+		}
+	]
+});
+
+
 
 var vm = new Vue({
+	router: router,
 	el: '#wrap',
 	data: {
-		showTask: true,
-		isActiveTasks: true,
-		showReceipts: false,
-		isActiveReceipts: false,
-		showMonthly: false,
-		isActiveMonthly: false,
-
 		showModal: false,
-
 		message: 'TEST-TEST',
 		name: 'みかん',
 		price: 100
-	},
-	methods: {
-		showTemplate: function(target) {
-			this.showTask = false;
-			this.isActiveTasks = false;
-			this.showReceipts = false;
-			this.isActiveReceipts = false;
-			this.showMonthly = false;
-			this.isActiveMonthly = false;
-			if(target === 'tasks'){
-				this.showTask = true;
-				this.isActiveTasks = true;
-			} else if(target === 'receipts') {
-				this.showReceipts = true;
-				this.isActiveReceipts = true;
-			} else if(target === 'monthly') {
-				this.showMonthly = true;
-				this.isActiveMonthly = true;
-			}
-			return false;
-		}
 	}
 });
 </script>
