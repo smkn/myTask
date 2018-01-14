@@ -119,7 +119,7 @@ article header ul{
 article header li{
 	display: inline-block;
 }
-article header li a{
+article header li label{
 	font-size: 12px;
 	display: block;
 	margin-left: 5px;
@@ -127,18 +127,19 @@ article header li a{
 	padding: 5px 20px;
 	border-radius: 6px;
 	text-decoration: none;
+	cursor: pointer;
 }
-article header li a:hover{
+article header li label:hover{
 	color: #fff;
 	opacity: .7;
 }
-#section-tasks header li a{
+#section-tasks header li label{
 	background-color: #17b4d5;
 }
-#section-receipts header li a{
+#section-receipts header li label{
 	background-color: #09cd49;
 }
-#section-monthly header li a{
+#section-monthly header li label{
 	background-color: #b4d517;
 }
 
@@ -242,6 +243,69 @@ footer{
 
 
 /* modal */
+.modal-wrap input[type='checkbox'] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	display: none;
+}
+
+.modal-wrap .toggle-on:checked {
+	position: fixed;
+	overflow-y: auto;
+	display: block;
+	background-color: rgba(0, 0, 0, .5);
+	width: 100vw;
+	height: 100vh;
+	z-index: 999;
+	top: 0;
+	left: 0;
+}
+.modal-wrap .modal-window {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 10vw;
+	overflow-y: auto;
+	width: 80vw;
+	max-height: 90vh;
+	background-color: #fff;
+	margin: 5vh auto;
+	padding: 20px;
+	z-index: 9999;
+}
+.modal-wrap .toggle-on:checked + .modal-window {
+	display: block;
+}
+
+
+
+/* 旧モーダル
+article header li a{
+	font-size: 12px;
+	display: block;
+	margin-left: 5px;
+	color: #fff;
+	padding: 5px 20px;
+	border-radius: 6px;
+	text-decoration: none;
+}
+article header li a:hover{
+	color: #fff;
+	opacity: .7;
+}
+#section-tasks header li a{
+	background-color: #17b4d5;
+}
+#section-receipts header li a{
+	background-color: #09cd49;
+}
+#section-monthly header li a{
+	background-color: #b4d517;
+}
+
+
+
 .modal-mask {
 	position: fixed;
 	z-index: 9998;
@@ -286,14 +350,7 @@ footer{
 	cursor: pointer;
 }
 
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
+
 
 .modal-enter {
 	opacity: 0;
@@ -308,3 +365,5 @@ footer{
 	-webkit-transform: scale(1.1);
 	transform: scale(1.1);
 }
+
+*/

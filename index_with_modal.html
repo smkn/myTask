@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700|Belleza">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -32,15 +31,10 @@
 	<receipts v-if="showTemplate === 'receipts'"></receipts>
 	<monthly v-if="showTemplate === 'monthly'" v-on:show-modal="showModalData"></monthly>
 
+
 	<footer>Copyright &copy; 2016- <a href="http://www.kiki-verb.com/" target="_blank">kiki-verb.com</a>. All Rights Reserved.</footer>
 	<p>{{ name }} は {{ price }}円</p>
 </article>
-
-
-
-
-
-
 
 
 
@@ -49,23 +43,8 @@
 		<header>
 			<h2><i class="fa fa-pencil-square-o"></i> Tasks</h2>
 			<ul>
-				<li><label for="modal"><i class="fa fa-plus-square"></i> 追加</label></li>
+				<li><a href="#" v-on:click.prevent="$emit('show-modal')"><i class="fa fa-plus-square"></i> 追加</a></li>
 			</ul>
-
-			<div class="modal-wrap" id="modal-p01">
-				<input type="checkbox" class="toggle-on" id="modal">
-				<div class="modal-window">
-					<div>
-						<p>おはろー！</p>
-
-						<p>Browser Support<br /><br />This modal is designed to work on all modern browsers. Unfortunately this does not include Internet Explorer 7 or lower. But we deal with IE 8 – well,… at least it works.<br /><br />On mobile Safari for iOS and Android 4+ it is tested pretty well, while Android 2.3 has some problems (biggest issue is scrolling). It's also working on Windows Phone 8.<br /><br />In numbers:<br /><br />    Chrome<br />    Firefox<br />    Safari 6.x<br />    Opera 12+<br />    Internet Explorer 8 (functional, include jQuery if you want support for events)<br />    Internet Explorer 9+<br />    iOS 6<br />    Android 2.3 (functional)<br />    Android 4.x<br />    Windows Phone 8<br /><br />Media<br /><br />Please be aware that you need to stop playing videos or audio manually after hiding the modal. We have a plugin for this though.<br />Events<br /><br />There is an event cssmodal:show fired on the modal itself after the modal is shown. Another event cssmodal:hide is fired after the modal is hidden.<br /><br />You can use the events by subscribing to them as if they were click events or something. Here is an example using jQuery:<br /><br />$(document).on('cssmodal:show', function (event) {<br />    console.log(event);<br />});<br /><br />There events are not fired in IE8. Please be aware of that and use jQuery or something else to create custom events.<br />Plugins<br /><br />We have a couple for the modal to enhance it:<br /><br />    Resize - Resizes modal to size of input elements<br />    Gallery - A lightbox plugin (in connection with resize)<br />    HTML5 Video - Load videos within the modal<br />    Maximum Width - Set a custom maximum width on a per-modal basis<br /><br />Bug reports and feature requests<br /><br />If you got something that's worth including into the project please open an issue for further discussion.<br /><br />Please see the section on contributing on the website.<br />Contributors<br /><br />This is a project by Hans Christian Reinl. Thanks goes out to all other contributors.</p>
-
-						<p>現役WEBデザイナーとか言っちゃってますけど36歳のおじさんです。あいたた<br />私は仕事でも普段でもメインで使っているブラウザはFireFoxです。<br />もう10年以上愛用してるかもしれません。Chromeはいまいち好きになれません。<br /><br />今回は、日ごろよく使ってるFireFoxアドオンをご紹介します。<br />基本編<br />Adblock Plus<br /><br />https://addons.mozilla.org/ja/firefox/addon/adblock-plus/<br /><br />    広告は過去の遺物です！Adblock PlusではWebをコントロールし外観を変えることができます。広告削除からマルウェアのブロックまで対応できる40以上の同期フィルタがあり、言語に応じて自動的に設定されます。また、コンテキストメニューやタブ、リストからの選択など便利な機能を利用して自分でカスタマイズすることもできます。<br /><br />言わずと知れた広告をブロックしてくれるアドオン<br />デザインなど作業に集中してるときに広告がチラつくと気がそれてしまうことがあるので重宝しますね。<br />Speed Dial<br /><br />https://addons.mozilla.org/ja/firefox/addon/speed-dial/<br /><br />    よく訪問するウェブサイトへ直接アクセスします<br /><br />新規タブを開いたときに、よく訪問するサイトの一覧をサムネイル付きで表示できる<br />セッションマネージャ<br /><br />https://addons.mozilla.org/ja/firefox/addon/session-manager/<br /><br />    セッションマネージャは、すべてのウィンドウまたはいくつかのウィンドウの状態を保存したり、復元したりすることができます。また、開いているウィンドウの状態を自動的に保存することもできます。<br /><br />ブラウザを閉じて再開したときにタブを復元してくれる。<br />予期せぬクラッシュでブラウザが閉じてしまったときでも安心できます。<br />Tab Groups<br /><br />https://addons.mozilla.org/ja/firefox/addon/tab-groups-panorama/<br /><br />    タブグループで多くのタブを簡単に整理できます。タブを視覚的にまとめたり、グループを切り替えたり、すべてのタブからすばやく検索して特定のタブを開けます。<br /><br />タブを仕事用やプライベート用など複数のグループにわけて管理できます。<br />タブグループの機能は以前はデフォルトでついてたんですが、現在はアドオンでのみ実装できます。<br />Tab Mix Plus<br /><br />https://addons.mozilla.org/ja/firefox/addon/tab-mix-plus/<br /><br />    タブブラウジングを強化する様々な機能を追加します。タブの複製、タブのフォーカスの制御、タブをクリックしたときの設定、閉じたタブ/ウィンドウの復元、その他多くの機能があります。また、開いていたタブ、ウィンドウの組み合わせを保存し復元するクラッシュリカバリが可能なフル機能のセッションマネージャもあります。<br /><br />FireFoxのタブ機能を強化してくれるアドオン。</p>
-					</div>
-
-					<label class="toggle-button" for="modal">Close &times;</label>
-				</div>
-			</div>
 		</header>
 		<div>
 			<h3>見出しのレベルで暗示的に::{{ message }}::ができる</h3>
@@ -108,19 +87,8 @@
 		<header>
 			<h2><i class="fa fa-calendar-check-o"></i> Monthly</h2>
 			<ul>
-				<li><label for="modal"><i class="fa fa-plus-square"></i> 追加</label></li>
+				<li><a href="#" v-on:click.prevent="$emit('show-modal')"><i class="fa fa-plus-square"></i> 追加</a></li>
 			</ul>
-
-			<div class="modal-wrap" id="modal-p01">
-				<input type="checkbox" class="toggle-on" id="modal">
-				<div class="modal-window">
-					<div>
-						<p>おはろー！いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせす。</p>
-					</div>
-
-					<label class="toggle-button" for="modal">Close &times;</label>
-				</div>
-			</div>
 		</header>
 
 		<div>
@@ -137,6 +105,45 @@
 	</section>
 </script>
 
+<modal v-if="showModalFlag" v-on:close="showModalFlag = false"></modal>
+<script id="modal-template" type="text/x-template">
+	<transition name="modal">
+		<div class="modal-mask">
+			<div class="modal-wrapper">
+				<div class="modal-container">
+					<form action="" method="post" class="form-wrap">
+						<div>
+							<h3>タイトル</h3>
+							<input type="text" name="title" value="">
+						</div>
+
+						<div>
+							<h3>クライアント名</h3>
+							<input type="text" name="client" value="">
+						</div>
+
+						<div>
+							<h3>日時</h3>
+							<input type="text" name="date" value="">
+						</div>
+
+						<div>
+							<h3>内容</h3>
+							<textarea name="content" rows="5" cols="5"></textarea>
+						</div>
+
+						<div>
+							<input type="submit" name="submit" value="送信">
+						</div>
+					</form>
+
+					<p class="modal-default-button"><button v-on:click="$emit('close')">Close</button></p>
+				</div>
+			</div>
+		</div>
+	</transition>
+</script>
+
 </div>
 <script>
 Vue.component('tasks', {
@@ -151,16 +158,14 @@ Vue.component('monthly', {
 	template: '#template-monthly',
 	props: ['message']
 })
-
-
-
+Vue.component('modal', {
+	template: '#modal-template'
+});
 var vm = new Vue({
 	el: '#wrap',
 	data: {
 		showTemplate: 'tasks',
-
-		characters: [],
-
+		showModalFlag: false,
 		message: 'TEST-TEST',
 		name: 'みかん',
 		price: 100
@@ -169,14 +174,10 @@ var vm = new Vue({
 		selectTemplate: function(target) {
 			this.showTemplate = target;
 		},
-		async getCharacters() {
-			var url = 'https://gist.githubusercontent.com/anonymous/c41ae1698aca3595b95d1496ebf42d83/raw/2addeb281bcb4aae2be9c8204c0ec623c4cb446c/characters.json';
-			await axios.get(url).then(x => { this.characters = x.data; });
+		showModalData(data) {
+			this.showModalFlag = true;
 		}
-	},
-      mounted() {
-        this.getCharacters();
-      }
+	}
 });
 </script>
 </body>
