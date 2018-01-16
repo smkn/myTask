@@ -225,7 +225,7 @@ footer{
 .form-wrap > div{
 	margin-bottom: 20px;
 }
-.form-wrap input[type="text"], .form-wrap input[type="select"], .form-wrap textarea {
+.form-wrap input[type="text"], .form-wrap input[type="date"], .form-wrap input[type="select"], .form-wrap textarea {
 	width: 100%;
 	display: block;
 	padding: 5px 10px;

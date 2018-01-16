@@ -52,27 +52,31 @@
 			</ul>
 
 			<div class="modal-wrap" id="modal-tasks">
-				<input type="checkbox" class="toggle-on" id="modal" v-model="modalEnabled" v-on:click="$parent.focusOn('formtasks')">
+				<input type="checkbox" class="toggle-on" id="modal" v-model="modalEnabled" v-on:click="focusOn('formtasks')">
 				<div class="modal-window">
 					<div>
-						<form action="" method="post" id="formtasks" class="form-wrap" v-on:submit.prevent="addTask">
+						<form action="" method="post" name="formtasks" class="form-wrap" v-on:submit.prevent="addTask">
 							<div>
 								<h3>タイトル</h3>
-								<input type="text" name="title" value="" required>
+								<input type="text" name="title" value="">
 							</div>
 
 							<div>
 								<h3>クライアント名</h3>
-								<input type="text" name="client" value="" required>
+								<input type="text" name="client" value="">
+							</div>
+
+							<div>
+								<h3>日時</h3>
+								<input type="date" name="date" value="">
 							</div>
 
 							<div>
 								<h3>内容</h3>
-								<textarea name="content" rows="5" cols="5" required></textarea>
+								<textarea name="content" rows="5" cols="5"></textarea>
 							</div>
 
 							<div>
-								<input type="hidden" name="date" v-bind:value="$parent.addNowDatetime()" required>
 								<input type="hidden" name="category" value="tasks">
 								<input type="submit" name="submit" value="送信">
 							</div>
@@ -91,8 +95,8 @@
 			<aside>
 				<ul>
 					<li><a href="#"><i class="fa fa-pencil"></i> 編集</a></li>
-					<li><a href="#" v-on:click="$parent.changeTask(task.id, 'receipts')"><i class="fa fa-check-square-o"></i> 完了</a></li>
-					<li><a href="#" v-on:click="$parent.deleteTask(task.id)"><i class="fa fa-eraser"></i> 削除</a></li>
+					<li><a href="#"><i class="fa fa-check-square-o"></i> 完了</a></li>
+					<li><a href="#"><i class="fa fa-eraser"></i> 削除</a></li>
 				</ul>
 			</aside>
 		</div>
@@ -113,9 +117,9 @@
 			<aside>
 				<ul>
 					<li><a href="#"><i class="fa fa-pencil"></i> 編集</a></li>
-					<li><a href="#" v-on:click="$parent.changeTask(task.id, 'tasks')"><i class="fa fa-share"></i> タスクに戻す</a></li>
+					<li><a href="#"><i class="fa fa-share"></i> タスクに戻す</a></li>
 					<li><a href="#"><i class="fa fa-check-square-o"></i> 過去ログ化</a></li>
-					<li><a href="#" v-on:click="$parent.deleteTask(task.id)"><i class="fa fa-eraser"></i> 削除</a></li>
+					<li><a href="#"><i class="fa fa-eraser"></i> 削除</a></li>
 				</ul>
 			</aside>
 		</div>
@@ -131,27 +135,31 @@
 			</ul>
 
 			<div class="modal-wrap" id="modal-monthly">
-				<input type="checkbox" class="toggle-on" id="modal" v-model="modalEnabled" v-on:click="$parent.focusOn('formmonthly')">
+				<input type="checkbox" class="toggle-on" id="modal" v-model="modalEnabled" v-on:click="focusOn('formmonthly')">
 				<div class="modal-window">
 					<div>
-						<form action="" method="post" id="formmonthly" class="form-wrap" v-on:submit.prevent="addTask">
+						<form action="" method="post" name="formmonthly" class="form-wrap" v-on:submit.prevent="addTask">
 							<div>
 								<h3>タイトル</h3>
-								<input type="text" name="title" value="" required>
+								<input type="text" name="title" value="">
 							</div>
 
 							<div>
 								<h3>クライアント名</h3>
-								<input type="text" name="client" value="" required>
+								<input type="text" name="client" value="">
+							</div>
+
+							<div>
+								<h3>日時</h3>
+								<input type="date" name="date" value="">
 							</div>
 
 							<div>
 								<h3>内容</h3>
-								<textarea name="content" rows="5" cols="5" required></textarea>
+								<textarea name="content" rows="5" cols="5"></textarea>
 							</div>
 
 							<div>
-								<input type="hidden" name="date" v-bind:value="$parent.addNowDatetime()" required>
 								<input type="hidden" name="category" value="monthly">
 								<input type="submit" name="submit" value="送信">
 							</div>
@@ -170,7 +178,7 @@
 			<aside>
 				<ul>
 					<li><a href="#"><i class="fa fa-pencil"></i> 編集</a></li>
-					<li><a href="#" v-on:click="$parent.deleteTask(task.id)"><i class="fa fa-eraser"></i> 削除</a></li>
+					<li><a href="#"><i class="fa fa-eraser"></i> 削除</a></li>
 				</ul>
 			</aside>
 		</div>
@@ -186,8 +194,21 @@ Vue.component('taskboard', {
 		}
 	},
 	methods: {
+		focusOn: function(targetId){
+			document.formtasks.title.focus();
+		},
 		addTask: function(event){
-			vm.addTask(event);
+			var newTasks = {
+				id: Date.now(),
+				title: event.target.title.value,
+				client: event.target.client.value,
+				date: event.target.date.value,
+				content: event.target.content.value,
+				category: event.target.category.value
+			}
+			//以下、空じゃなければ
+			vm.addTask(newTasks);
+			vm.saveToStorage();
 			this.modalEnabled = false;
 		}
 	}
@@ -203,8 +224,21 @@ Vue.component('monthlyboard', {
 		}
 	},
 	methods: {
+		focusOn: function(targetId){
+			document.formmonthly.title.focus();
+		},
 		addTask: function(event){
-			vm.addTask(event);
+			var newTasks = {
+				id: Date.now(),
+				title: event.target.title.value,
+				client: event.target.client.value,
+				date: event.target.date.value,
+				content: event.target.content.value,
+				category: event.target.category.value
+			}
+			//以下、空じゃなければ
+			vm.addTask(newTasks);
+			vm.saveToStorage();
 			this.modalEnabled = false;
 		}
 	}
@@ -231,53 +265,21 @@ var vm = new Vue({
 		selectTemplate: function(target) {
 			this.showTemplate = target;
 		},
-		focusOn: function(targetId){
-			var element = document.getElementById(targetId);
-			element.title.focus();
-		},
-		addNowDatetime: function(){
-			return new Date().toLocaleString();
-		},
-		addTask: function(event){
-			var newTasks = {
-				id: Date.now(),
-				title: event.target.title.value,
-				client: event.target.client.value,
-				date: event.target.date.value,
-				content: event.target.content.value,
-				category: event.target.category.value
-			}
-			this.tasks.push(newTasks);
+		addTask: function(newtask){
+			this.tasks.push(newtask);
 			this.saveToStorage();
-		},
-		editTask: function(targetId){
-//			var deletedTask = this.tasks.filter(function(task){
-//				if(task.id !== targetId) return true;
-//			});
-//			this.tasks = deletedTask;
-//			this.saveToStorage();
-		},
-		changeTask: function(targetId, changeTarget){
-console.log(this.tasks);
-			var changedTask = this.tasks.map(function(task){
-				if(task.id === targetId){
-					task.category = changeTarget;
-				}
-				return task;
-			});
-console.log(changedTask);
-//			this.tasks = completedTask;
-//			this.saveToStorage();
-		},
-		deleteTask: function(targetId){
-			var deletedTask = this.tasks.filter(function(task){
-				if(task.id !== targetId) return true;
+/*		},
+
+		deleteTask: function(){
+			const deletedTask = this.tasks.filter(function(todo){
+				if(todo.isDone === false) return true;
 			});
 			this.tasks = deletedTask;
 			this.saveToStorage();
-		},
+*/		},
 		saveToStorage: function(){
 			localStorage.setItem('tasks', JSON.stringify(this.tasks));
+//			console.log('saved!');
 		}
 	},
 	mounted: function(){

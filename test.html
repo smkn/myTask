@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>myTask</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, address=no, email=no">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+	<ol>
+		<todo-item v-for="item in groceryList" v-bind:po_popo="item" qqq="これqqq" v-bind:xxx="zzz"></todo-item>
+	</ol>
+
+	<ul>
+		<li v-for="todo in groceryList">todo.id + 1:{{todo.id + 1}}, todo.text:{{ todo.text }}, zzz:{{ zzz }}</li>
+	</ul>
+
+	<p>{{ aaa }}</p>
+	<input type="text" v-model="ppp">
+	<p>ppp::{{ ppp }}::</p>
+
+	auaua<input type="checkbox" v-model="auaua">
+	<p>::{{ auaua }}::</p>
+
+	<qwerty :poipoi="auaua"></qwerty>
+
+</div>
+
+#app の外にテンプレscriptがないとダメ
+<script id="qoiuqoiu" type="text/x-template">
+<li>po_popo.text:{{ po_popo.text }}, sss:{{ sss }}, qqq:{{ qqq }}, xxx:{{ xxx }}<h6 v-for="bbb in bbbs">{{ bbb.text }}</h6></li>
+</script>
+
+<script id="qqwwee" type="text/x-template">
+<div id="oni">poipoi<input type="checkbox" v-model="poipoi"><p>::{{ poipoi }}::</p><ul><li v-for="ccc in $parent.groceryList">{{ ccc.text }}</li></ul></div>
+</script>
+
+<script>
+Vue.component('todo-item', {
+	props: ['po_popo', 'qqq', 'xxx'], //大文字もハイフンもダメ！ ++ propsは変数名であり、値はtemplateの呼び出し時のカスタムタグ上でzzz='123'とする。親子は関係ない！
+	template: '#qoiuqoiu', //ここで初出の変数sssが使いたいなら、ここのdataでfunctionで返す ++ 親のdata使いたいなら、temp呼び出しのbindの値にちょくせつ親の変数名を入れて！
+	data: function(){
+		return {
+			sss: 'これsssやで',
+			bbbs: [
+				{ cat: 'a', text: 'もちege' },
+				{ cat: 'b', text: 'ちーずse' },
+				{ cat: 'a', text: 'グルメat' }
+			]
+		}
+	}
+})
+
+Vue.component('qwerty', {
+	props: ['ccc', 'groceryList'],
+	template: '#qqwwee',
+	data: function(){
+		return {
+			poipoi: true,
+			cccs: [
+				{ cat: 'a', text: 'もちege' },
+				{ cat: 'b', text: 'ちーずse' },
+				{ cat: 'a', text: 'グルメat' }
+			]
+		}
+	}
+})
+
+var vm = new Vue({
+	el: '#app',
+	data: {
+		aaa: 'aaaあああ',
+		ppp: 'いpれpて',
+		auaua: false,
+		zzz: 'これはZｄすｄね',
+		groceryList: [
+			{ id: 0, text: 'Vege' },
+			{ id: 1, text: 'Cheese' },
+			{ id: 2, text: 'Whateeat' }
+		]
+	}
+})
+</script>
+</body>
+</html>
