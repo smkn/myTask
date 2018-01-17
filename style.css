@@ -188,7 +188,7 @@ section aside ul{
 section aside li{
 	display: inline-block;
 }
-section aside li a{
+section aside li a, section aside li label{
 	font-size: 12px;
 	display: block;
 	margin: 0 0 5px 5px;
@@ -196,18 +196,19 @@ section aside li a{
 	padding: 5px 20px;
 	border-radius: 6px;
 	text-decoration: none;
+	cursor: pointer;
 }
-section aside li a:hover{
+section aside li a:hover, section aside li label:hover{
 	color: #fff;
 	opacity: .7;
 }
-#section-tasks aside li a{
+#section-tasks aside li a, #section-tasks aside li label{
 	background-color: #17b4d5;
 }
-#section-receipts aside li a{
+#section-receipts aside li a, #section-receipts aside li label{
 	background-color: #09cd49;
 }
-#section-monthly aside li a{
+#section-monthly aside li a, #section-monthly aside li label{
 	background-color: #b4d517;
 }
 

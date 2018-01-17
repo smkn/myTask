@@ -32,14 +32,9 @@
 		<monthlyboard v-if="showTemplate === 'monthlyboard'"></monthlyboard>
 
 		<footer>Copyright &copy; 2016- <a href="http://www.kiki-verb.com/" target="_blank">kiki-verb.com</a>. All Rights Reserved.</footer>
-		<p>{{ name }} は {{ price }}円</p>
 	</article>
 
 </div>
-
-
-
-
 
 
 
@@ -48,14 +43,14 @@
 		<header>
 			<h2><i class="fa fa-pencil-square-o"></i> Tasks</h2>
 			<ul>
-				<li><label for="modal"><i class="fa fa-plus-square"></i> 追加</label></li>
+				<li><label for="modal" v-on:click="$parent.addTaskSet('formtasks')"><i class="fa fa-plus-square"></i> 追加</label></li>
 			</ul>
 
 			<div class="modal-wrap" id="modal-tasks">
-				<input type="checkbox" class="toggle-on" id="modal" v-model="modalEnabled" v-on:click="$parent.focusOn('formtasks')">
+				<input type="checkbox" class="toggle-on" id="modal" v-model="modalEnabled" v-on:click="$parent.focusOnForm('formtasks')">
 				<div class="modal-window">
 					<div>
-						<form action="" method="post" id="formtasks" class="form-wrap" v-on:submit.prevent="addTask">
+						<form action="" method="post" id="formtasks" class="form-wrap" v-on:submit.prevent="createTask">
 							<div>
 								<h3>タイトル</h3>
 								<input type="text" name="title" value="" required>
@@ -72,14 +67,14 @@
 							</div>
 
 							<div>
-								<input type="hidden" name="date" v-bind:value="$parent.addNowDatetime()" required>
+								<input type="hidden" name="id" value="monthly">
+								<input type="hidden" name="date" v-bind:value="$parent.addNowDatetime()">
 								<input type="hidden" name="category" value="tasks">
+								<input type="hidden" name="type" value="add">
 								<input type="submit" name="submit" value="送信">
 							</div>
 						</form>
 					</div>
-
-					<label class="toggle-button" for="modal">Close &times;</label>
 				</div>
 			</div>
 		</header>
@@ -90,7 +85,7 @@
 			<div>{{ task.content }}</div>
 			<aside>
 				<ul>
-					<li><a href="#"><i class="fa fa-pencil"></i> 編集</a></li>
+					<li><label for="modal" v-on:click="$parent.editTaskSet(task.id, 'formtasks')"><i class="fa fa-pencil"></i> 編集</label></li>
 					<li><a href="#" v-on:click="$parent.changeTask(task.id, 'receipts')"><i class="fa fa-check-square-o"></i> 完了</a></li>
 					<li><a href="#" v-on:click="$parent.deleteTask(task.id)"><i class="fa fa-eraser"></i> 削除</a></li>
 				</ul>
@@ -114,7 +109,7 @@
 				<ul>
 					<li><a href="#"><i class="fa fa-pencil"></i> 編集</a></li>
 					<li><a href="#" v-on:click="$parent.changeTask(task.id, 'tasks')"><i class="fa fa-share"></i> タスクに戻す</a></li>
-					<li><a href="#"><i class="fa fa-check-square-o"></i> 過去ログ化</a></li>
+<!--					<li><a href="#"><i class="fa fa-check-square-o"></i> 過去ログ化</a></li>-->
 					<li><a href="#" v-on:click="$parent.deleteTask(task.id)"><i class="fa fa-eraser"></i> 削除</a></li>
 				</ul>
 			</aside>
@@ -127,14 +122,14 @@
 		<header>
 			<h2><i class="fa fa-calendar-check-o"></i> Monthly</h2>
 			<ul>
-				<li><label for="modal"><i class="fa fa-plus-square"></i> 追加</label></li>
+				<li><label for="modal" v-on:click="$parent.addTaskSet('formmonthly')"><i class="fa fa-plus-square"></i> 追加</label></li>
 			</ul>
 
 			<div class="modal-wrap" id="modal-monthly">
-				<input type="checkbox" class="toggle-on" id="modal" v-model="modalEnabled" v-on:click="$parent.focusOn('formmonthly')">
+				<input type="checkbox" class="toggle-on" id="modal" v-model="modalEnabled" v-on:click="$parent.focusOnForm('formmonthly')">
 				<div class="modal-window">
 					<div>
-						<form action="" method="post" id="formmonthly" class="form-wrap" v-on:submit.prevent="addTask">
+						<form action="" method="post" id="formmonthly" class="form-wrap" v-on:submit.prevent="createTask">
 							<div>
 								<h3>タイトル</h3>
 								<input type="text" name="title" value="" required>
@@ -151,14 +146,14 @@
 							</div>
 
 							<div>
-								<input type="hidden" name="date" v-bind:value="$parent.addNowDatetime()" required>
+								<input type="hidden" name="id" value="monthly">
+								<input type="hidden" name="date" v-bind:value="$parent.addNowDatetime()">
 								<input type="hidden" name="category" value="monthly">
+								<input type="hidden" name="type" value="add">
 								<input type="submit" name="submit" value="送信">
 							</div>
 						</form>
 					</div>
-
-					<label class="toggle-button" for="modal">Close &times;</label>
 				</div>
 			</div>
 		</header>
@@ -169,7 +164,7 @@
 			<div>{{ task.content }}</div>
 			<aside>
 				<ul>
-					<li><a href="#"><i class="fa fa-pencil"></i> 編集</a></li>
+					<li><label for="modal" v-on:click="$parent.editTaskSet(task.id, 'formmonthly')"><i class="fa fa-pencil"></i> 編集</label></li>
 					<li><a href="#" v-on:click="$parent.deleteTask(task.id)"><i class="fa fa-eraser"></i> 削除</a></li>
 				</ul>
 			</aside>
@@ -186,8 +181,8 @@ Vue.component('taskboard', {
 		}
 	},
 	methods: {
-		addTask: function(event){
-			vm.addTask(event);
+		createTask: function(event){
+			vm.createTask(event);
 			this.modalEnabled = false;
 		}
 	}
@@ -203,8 +198,8 @@ Vue.component('monthlyboard', {
 		}
 	},
 	methods: {
-		addTask: function(event){
-			vm.addTask(event);
+		createTask: function(event){
+			vm.createTask(event);
 			this.modalEnabled = false;
 		}
 	}
@@ -231,50 +226,84 @@ var vm = new Vue({
 		selectTemplate: function(target) {
 			this.showTemplate = target;
 		},
-		focusOn: function(targetId){
-			var element = document.getElementById(targetId);
+		focusOnForm: function(targetFormId){
+			var element = document.getElementById(targetFormId);
 			element.title.focus();
 		},
 		addNowDatetime: function(){
 			return new Date().toLocaleString();
 		},
-		addTask: function(event){
-			var newTasks = {
-				id: Date.now(),
-				title: event.target.title.value,
-				client: event.target.client.value,
-				date: event.target.date.value,
-				content: event.target.content.value,
-				category: event.target.category.value
+		createTask: function(event){
+			if(event.target.type.value === 'add'){
+				var newTask = {
+					id: Date.now(),
+					title: event.target.title.value,
+					client: event.target.client.value,
+					date: event.target.date.value,
+					content: event.target.content.value,
+					category: event.target.category.value
+				}
+				this.tasks.unshift(newTask);
+			} else if(event.target.type.value === 'edit') {
+				var newTasks = this.tasks.map(function(task){
+					if(task.id == event.target.id.value){
+						var newTask = {
+							id: event.target.id.value,
+							title: event.target.title.value,
+							client: event.target.client.value,
+							date: event.target.date.value,
+							content: event.target.content.value,
+							category: event.target.category.value
+						}
+						return newTask;
+					} else {
+						return task;
+					}
+				});
+				this.tasks = newTasks;
 			}
-			this.tasks.push(newTasks);
 			this.saveToStorage();
 		},
-		editTask: function(targetId){
-//			var deletedTask = this.tasks.filter(function(task){
-//				if(task.id !== targetId) return true;
-//			});
-//			this.tasks = deletedTask;
-//			this.saveToStorage();
+		addTaskSet: function(targetFormId){
+			var element = document.getElementById(targetFormId);
+			element.id.value = '';
+			element.title.value = '';
+			element.client.value = '';
+			element.content.value = '';
+			element.type.value = 'add';
+		},
+		editTaskSet: function(targetId, targetFormId){
+			var element = document.getElementById(targetFormId);
+			var targetTask = this.tasks.map(function(task){
+				if(task.id === targetId){
+					element.id.value = task.id;
+					element.title.value = task.title;
+					element.client.value = task.client;
+					element.date.value = task.date;
+					element.content.value = task.content;
+					element.category.value = task.category;
+					element.type.value = 'edit';
+				}
+			});
 		},
 		changeTask: function(targetId, changeTarget){
-console.log(this.tasks);
 			var changedTask = this.tasks.map(function(task){
 				if(task.id === targetId){
 					task.category = changeTarget;
 				}
 				return task;
 			});
-console.log(changedTask);
-//			this.tasks = completedTask;
-//			this.saveToStorage();
+			this.tasks = changedTask;
+			this.saveToStorage();
 		},
 		deleteTask: function(targetId){
 			var deletedTask = this.tasks.filter(function(task){
 				if(task.id !== targetId) return true;
 			});
-			this.tasks = deletedTask;
-			this.saveToStorage();
+			if(window.confirm('消すで？')){
+				this.tasks = deletedTask;
+				this.saveToStorage();
+			}
 		},
 		saveToStorage: function(){
 			localStorage.setItem('tasks', JSON.stringify(this.tasks));
