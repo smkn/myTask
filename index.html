@@ -71,6 +71,9 @@ nav a{
 #nav-monthly:hover, .router-link-exact-active #nav-monthly, .current #nav-monthly{
 	border-right: 5px solid #b4d517;
 }
+#nav-backup:hover{
+	border-right: 5px solid #d65718;
+}
 @media screen and (max-width: 767px) {
 	#nav-tasks:hover, .router-link-exact-active #nav-tasks, .current #nav-tasks{
 		border-right: none;
@@ -294,6 +297,7 @@ footer{
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700|Belleza">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -305,6 +309,7 @@ footer{
 			<li v-bind:class="{current: showTemplate === 'receiptboard'}"><a href="#" id="nav-receipts" v-on:click.prevent="selectTemplate('receiptboard')"><i class="fa fa-trophy"></i> Receipts</a></li>
 			<li v-bind:class="{current: showTemplate === 'monthlyboard'}"><a href="#" id="nav-monthly" v-on:click.prevent="selectTemplate('monthlyboard')"><i class="fa fa-calendar-check-o"></i> Monthly</a></li>
 		</ul>
+		<p><a id="nav-backup" v-on:click="backUpStorage"><i class="fa fa-cloud-download"></i> Backup</a></p>
 	</nav>
 
 	<article>
@@ -587,6 +592,20 @@ var vm = new Vue({
 		},
 		saveToStorage: function(){
 			localStorage.setItem('tasks', JSON.stringify(this.tasks));
+		},
+		backUpStorage: function() {
+			var thisStorage = localStorage.getItem('tasks');
+			var blob = new Blob([thisStorage], {type: "text/plain"});
+			if(window.navigator.msSaveBlob){
+				// IEなら独自関数を使います。
+				window.navigator.msSaveBlob(blob, "ファイル名.txt");
+			} else {
+				// それ以外はaタグを利用してイベントを発火させます
+				var a = document.getElementById('nav-backup');
+				a.href = URL.createObjectURL(blob);
+				a.target = '_blank';
+				a.download = 'backUpStorage_'+moment().format('YYMMDD')+'.txt';
+			}
 		}
 	},
 	mounted: function(){
