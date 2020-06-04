@@ -62,33 +62,42 @@ nav a{
 		padding: 10px;
 	}
 }
-#nav-tasks:hover, .router-link-exact-active #nav-tasks, .current #nav-tasks{
+
+#nav-quotes:hover, .router-link-exact-active #nav-quotes, .current #nav-quotes{
 	border-right: 5px solid #17b4d5;
 }
-#nav-receipts:hover, .router-link-exact-active #nav-receipts, .current #nav-receipts{
+#nav-tasks:hover, .router-link-exact-active #nav-tasks, .current #nav-tasks{
 	border-right: 5px solid #09cd49;
 }
-#nav-monthly:hover, .router-link-exact-active #nav-monthly, .current #nav-monthly{
+#nav-receipts:hover, .router-link-exact-active #nav-receipts, .current #nav-receipts{
 	border-right: 5px solid #b4d517;
 }
-#nav-backup:hover{
+#nav-monthly:hover, .router-link-exact-active #nav-monthly, .current #nav-monthly{
 	border-right: 5px solid #d65718;
 }
+#nav-backup:hover{
+	border-right: 5px solid #d41515;
+}
 @media screen and (max-width: 767px) {
+	#nav-quotes:hover, .router-link-exact-active #nav-quotes, .current #nav-quotes{
+		border-right: none;
+		padding-bottom: 5px;
+		border-bottom: 5px solid #17b4d5;
+	}
 	#nav-tasks:hover, .router-link-exact-active #nav-tasks, .current #nav-tasks{
 		border-right: none;
-		border-bottom: 5px solid #17b4d5;
 		padding-bottom: 5px;
+		border-bottom: 5px solid #09cd49;
 	}
 	#nav-receipts:hover, .router-link-exact-active #nav-receipts, .current #nav-receipts{
 		border-right: none;
-		border-bottom: 5px solid #09cd49;
 		padding-bottom: 5px;
+		border-bottom: 5px solid #b4d517;
 	}
 	#nav-monthly:hover, .router-link-exact-active #nav-monthly, .current #nav-monthly{
 		border-right: none;
-		border-bottom: 5px solid #b4d517;
 		padding-bottom: 5px;
+		border-bottom: 5px solid #d41515;
 	}
 }
 article{
@@ -112,14 +121,17 @@ article header h2{
 	padding-bottom: 5px;
 	line-height: 1;
 }
-#section-tasks h2{
+#section-quotes h2{
 	border-bottom: 2px solid #17b4d5;
 }
-#section-receipts h2{
+#section-tasks h2{
 	border-bottom: 2px solid #09cd49;
 }
-#section-monthly h2{
+#section-receipts h2{
 	border-bottom: 2px solid #b4d517;
+}
+#section-monthly h2{
+	border-bottom: 2px solid #d41515;
 }
 article header{
 	margin-bottom: 10px;
@@ -146,14 +158,17 @@ article header li label:hover{
 	color: #fff;
 	opacity: .7;
 }
-#section-tasks header li label{
+#section-quotes header li label{
 	background-color: #17b4d5;
 }
-#section-receipts header li label{
+#section-tasks header li label{
 	background-color: #09cd49;
 }
-#section-monthly header li label{
+#section-receipts header li label{
 	background-color: #b4d517;
+}
+#section-monthly header li label{
+	background-color: #d41515;
 }
 
 article section{
@@ -173,14 +188,17 @@ article section > div h3{
 	padding-left: 10px;
 	line-height: 1.2;
 }
-#section-tasks > div h3{
+#section-quotes > div h3{
 	border-left: 5px solid #17b4d5;
 }
-#section-receipts > div h3{
+#section-tasks > div h3{
 	border-left: 5px solid #09cd49;
 }
-#section-monthly > div h3{
+#section-receipts > div h3{
 	border-left: 5px solid #b4d517;
+}
+#section-monthly > div h3{
+	border-left: 5px solid #d41515;
 }
 article section > div > p{
 	font-size: 12px;
@@ -216,14 +234,17 @@ section aside li a:hover, section aside li label:hover{
 	color: #fff;
 	opacity: .7;
 }
-#section-tasks aside li a, #section-tasks aside li label{
+#section-quotes aside li a, #section-quotes aside li label{
 	background-color: #17b4d5;
 }
-#section-receipts aside li a, #section-receipts aside li label{
+#section-tasks aside li a, #section-tasks aside li label{
 	background-color: #09cd49;
 }
-#section-monthly aside li a, #section-monthly aside li label{
+#section-receipts aside li a, #section-receipts aside li label{
 	background-color: #b4d517;
+}
+#section-monthly aside li a, #section-monthly aside li label{
+	background-color: #d41515;
 }
 
 footer{
@@ -305,6 +326,7 @@ footer{
 	<nav>
 		<h1>myTask</h1>
 		<ul>
+			<li v-bind:class="{current: showTemplate === 'quoteboard'}"><a href="#" id="nav-quotes" v-on:click.prevent="selectTemplate('quoteboard')"><i class="fa fa-th-list"></i> Quotes</a></li>
 			<li v-bind:class="{current: showTemplate === 'taskboard'}"><a href="#" id="nav-tasks" v-on:click.prevent="selectTemplate('taskboard')"><i class="fa fa-pencil-square-o"></i> Tasks</a></li>
 			<li v-bind:class="{current: showTemplate === 'receiptboard'}"><a href="#" id="nav-receipts" v-on:click.prevent="selectTemplate('receiptboard')"><i class="fa fa-trophy"></i> Receipts</a></li>
 			<li v-bind:class="{current: showTemplate === 'monthlyboard'}"><a href="#" id="nav-monthly" v-on:click.prevent="selectTemplate('monthlyboard')"><i class="fa fa-calendar-check-o"></i> Monthly</a></li>
@@ -313,6 +335,7 @@ footer{
 	</nav>
 
 	<article>
+		<quoteboard v-if="showTemplate === 'quoteboard'"></quoteboard>
 		<taskboard v-if="showTemplate === 'taskboard'"></taskboard>
 		<receiptboard v-if="showTemplate === 'receiptboard'"></receiptboard>
 		<monthlyboard v-if="showTemplate === 'monthlyboard'"></monthlyboard>
@@ -324,19 +347,76 @@ footer{
 
 
 
+<script id="template-quotes" type="text/x-template">
+	<section id="section-quotes">
+		<header>
+			<h2><i class="fa fa-pencil-square-o"></i> Quotes</h2>
+			<ul>
+				<li><label for="modal" v-on:click="$parent.addPostSet('formquotes')"><i class="fa fa-plus-square"></i> 追加</label></li>
+			</ul>
+
+			<div class="modal-wrap" id="modal-quotes">
+				<input type="checkbox" class="toggle-on" id="modal" v-model="modalEnabled" v-on:click="$parent.focusOnForm('formquotes')">
+				<div class="modal-window">
+					<div>
+						<form action="" method="post" id="formquotes" class="form-wrap" v-on:submit.prevent="createPost">
+							<div>
+								<h3>タイトル</h3>
+								<input type="text" name="title" value="" required>
+							</div>
+
+							<div>
+								<h3>クライアント名</h3>
+								<input type="text" name="client" value="" required>
+							</div>
+
+							<div>
+								<h3>内容</h3>
+								<textarea name="content" rows="5" cols="5" required></textarea>
+							</div>
+
+							<div>
+								<input type="hidden" name="id" value="monthly">
+								<input type="hidden" name="date" v-bind:value="$parent.addNowDatetime()">
+								<input type="hidden" name="category" value="quotes">
+								<input type="hidden" name="type" value="add">
+								<input type="submit" name="submit" value="送信">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<div v-for="post in $parent.posts" v-if="post.category === 'quotes'">
+			<h3>{{ post.title }}</h3>
+			<p><span><i class="fa fa-address-book-o"></i> {{ post.client }}</span><span><i class="fa fa-clock-o"></i> {{ post.date }}</span></p>
+			<div>{{ post.content }}</div>
+			<aside>
+				<ul>
+					<li><label for="modal" v-on:click="$parent.editPostSet(post.id, 'formquotes')"><i class="fa fa-pencil"></i> 編集</label></li>
+					<li><a href="#" v-on:click="$parent.changePost(post.id, 'tasks')"><i class="fa fa-check-square-o"></i> 案件化</a></li>
+					<li><a href="#" v-on:click="$parent.deletePost(post.id)"><i class="fa fa-eraser"></i> 削除</a></li>
+				</ul>
+			</aside>
+		</div>
+
+	</section>
+</script>
+
 <script id="template-tasks" type="text/x-template">
 	<section id="section-tasks">
 		<header>
 			<h2><i class="fa fa-pencil-square-o"></i> Tasks</h2>
 			<ul>
-				<li><label for="modal" v-on:click="$parent.addTaskSet('formtasks')"><i class="fa fa-plus-square"></i> 追加</label></li>
+				<li><label for="modal" v-on:click="$parent.addPostSet('formtasks')"><i class="fa fa-plus-square"></i> 追加</label></li>
 			</ul>
 
 			<div class="modal-wrap" id="modal-tasks">
 				<input type="checkbox" class="toggle-on" id="modal" v-model="modalEnabled" v-on:click="$parent.focusOnForm('formtasks')">
 				<div class="modal-window">
 					<div>
-						<form action="" method="post" id="formtasks" class="form-wrap" v-on:submit.prevent="createTask">
+						<form action="" method="post" id="formtasks" class="form-wrap" v-on:submit.prevent="createPost">
 							<div>
 								<h3>タイトル</h3>
 								<input type="text" name="title" value="" required>
@@ -365,15 +445,15 @@ footer{
 			</div>
 		</header>
 
-		<div v-for="task in $parent.tasks" v-if="task.category === 'tasks'">
-			<h3>{{ task.title }}</h3>
-			<p><span><i class="fa fa-address-book-o"></i> {{ task.client }}</span><span><i class="fa fa-clock-o"></i> {{ task.date }}</span></p>
-			<div>{{ task.content }}</div>
+		<div v-for="post in $parent.posts" v-if="post.category === 'tasks'">
+			<h3>{{ post.title }}</h3>
+			<p><span><i class="fa fa-address-book-o"></i> {{ post.client }}</span><span><i class="fa fa-clock-o"></i> {{ post.date }}</span></p>
+			<div>{{ post.content }}</div>
 			<aside>
 				<ul>
-					<li><label for="modal" v-on:click="$parent.editTaskSet(task.id, 'formtasks')"><i class="fa fa-pencil"></i> 編集</label></li>
-					<li><a href="#" v-on:click="$parent.changeTask(task.id, 'receipts')"><i class="fa fa-check-square-o"></i> 完了</a></li>
-					<li><a href="#" v-on:click="$parent.deleteTask(task.id)"><i class="fa fa-eraser"></i> 削除</a></li>
+					<li><label for="modal" v-on:click="$parent.editPostSet(post.id, 'formtasks')"><i class="fa fa-pencil"></i> 編集</label></li>
+					<li><a href="#" v-on:click="$parent.changePost(post.id, 'receipts')"><i class="fa fa-check-square-o"></i> 完了</a></li>
+					<li><a href="#" v-on:click="$parent.deletePost(post.id)"><i class="fa fa-eraser"></i> 削除</a></li>
 				</ul>
 			</aside>
 		</div>
@@ -387,15 +467,15 @@ footer{
 			<h2><i class="fa fa-trophy"></i> Receipts</h2>
 		</header>
 
-		<div v-for="task in $parent.tasks" v-if="task.category === 'receipts'">
-			<h3>{{ task.title }}</h3>
-			<p><span><i class="fa fa-address-book-o"></i> {{ task.client }}</span><span><i class="fa fa-clock-o"></i> {{ task.date }}</span></p>
-			<div>{{ task.content }}</div>
+		<div v-for="post in $parent.posts" v-if="post.category === 'receipts'">
+			<h3>{{ post.title }}</h3>
+			<p><span><i class="fa fa-address-book-o"></i> {{ post.client }}</span><span><i class="fa fa-clock-o"></i> {{ post.date }}</span></p>
+			<div>{{ post.content }}</div>
 			<aside>
 				<ul>
-					<li><a href="#" v-on:click="$parent.changeTask(task.id, 'tasks')"><i class="fa fa-share"></i> タスクに戻す</a></li>
+					<li><a href="#" v-on:click="$parent.changePost(post.id, 'tasks')"><i class="fa fa-share"></i> タスクに戻す</a></li>
 <!--					<li><a href="#"><i class="fa fa-check-square-o"></i> 過去ログ化</a></li>-->
-					<li><a href="#" v-on:click="$parent.deleteTask(task.id)"><i class="fa fa-eraser"></i> 削除</a></li>
+					<li><a href="#" v-on:click="$parent.deletePost(post.id)"><i class="fa fa-eraser"></i> 削除</a></li>
 				</ul>
 			</aside>
 		</div>
@@ -407,14 +487,14 @@ footer{
 		<header>
 			<h2><i class="fa fa-calendar-check-o"></i> Monthly</h2>
 			<ul>
-				<li><label for="modal" v-on:click="$parent.addTaskSet('formmonthly')"><i class="fa fa-plus-square"></i> 追加</label></li>
+				<li><label for="modal" v-on:click="$parent.addPostSet('formmonthly')"><i class="fa fa-plus-square"></i> 追加</label></li>
 			</ul>
 
 			<div class="modal-wrap" id="modal-monthly">
 				<input type="checkbox" class="toggle-on" id="modal" v-model="modalEnabled" v-on:click="$parent.focusOnForm('formmonthly')">
 				<div class="modal-window">
 					<div>
-						<form action="" method="post" id="formmonthly" class="form-wrap" v-on:submit.prevent="createTask">
+						<form action="" method="post" id="formmonthly" class="form-wrap" v-on:submit.prevent="createPost">
 							<div>
 								<h3>タイトル</h3>
 								<input type="text" name="title" value="" required>
@@ -443,14 +523,14 @@ footer{
 			</div>
 		</header>
 
-		<div v-for="task in $parent.tasks" v-if="task.category === 'monthly'">
-			<h3>{{ task.title }}</h3>
-			<p><span><i class="fa fa-address-book-o"></i> {{ task.client }}</span><span><i class="fa fa-clock-o"></i> {{ task.date }}</span></p>
-			<div>{{ task.content }}</div>
+		<div v-for="post in $parent.posts" v-if="post.category === 'monthly'">
+			<h3>{{ post.title }}</h3>
+			<p><span><i class="fa fa-address-book-o"></i> {{ post.client }}</span><span><i class="fa fa-clock-o"></i> {{ post.date }}</span></p>
+			<div>{{ post.content }}</div>
 			<aside>
 				<ul>
-					<li><label for="modal" v-on:click="$parent.editTaskSet(task.id, 'formmonthly')"><i class="fa fa-pencil"></i> 編集</label></li>
-					<li><a href="#" v-on:click="$parent.deleteTask(task.id)"><i class="fa fa-eraser"></i> 削除</a></li>
+					<li><label for="modal" v-on:click="$parent.editPostSet(post.id, 'formmonthly')"><i class="fa fa-pencil"></i> 編集</label></li>
+					<li><a href="#" v-on:click="$parent.deletePost(post.id)"><i class="fa fa-eraser"></i> 削除</a></li>
 				</ul>
 			</aside>
 		</div>
@@ -458,6 +538,20 @@ footer{
 </script>
 
 <script>
+Vue.component('quoteboard', {
+	template: '#template-quotes',
+	data: function(){
+		return {
+			modalEnabled: false
+		}
+	},
+	methods: {
+		createPost: function(event){
+			vm.createPost(event);
+			this.modalEnabled = false;
+		}
+	}
+})
 Vue.component('taskboard', {
 	template: '#template-tasks',
 	data: function(){
@@ -466,8 +560,8 @@ Vue.component('taskboard', {
 		}
 	},
 	methods: {
-		createTask: function(event){
-			vm.createTask(event);
+		createPost: function(event){
+			vm.createPost(event);
 			this.modalEnabled = false;
 		}
 	}
@@ -483,8 +577,8 @@ Vue.component('monthlyboard', {
 		}
 	},
 	methods: {
-		createTask: function(event){
-			vm.createTask(event);
+		createPost: function(event){
+			vm.createPost(event);
 			this.modalEnabled = false;
 		}
 	}
@@ -497,15 +591,12 @@ var vm = new Vue({
 	data: {
 		showTemplate: 'taskboard',
 
-		tasks: [],
+		posts: [],
 		title: '',
 		client: '',
 		date: '',
 		content: '',
-		category: '',
-
-		name: 'みかん',
-		price: 100
+		category: ''
 	},
 	methods: {
 		selectTemplate: function(target) {
@@ -518,9 +609,9 @@ var vm = new Vue({
 		addNowDatetime: function(){
 			return new Date().toLocaleString();
 		},
-		createTask: function(event){
+		createPost: function(event){
 			if(event.target.type.value === 'add'){
-				var newTask = {
+				var newPost = {
 					id: Date.now(),
 					title: event.target.title.value,
 					client: event.target.client.value,
@@ -528,11 +619,11 @@ var vm = new Vue({
 					content: event.target.content.value,
 					category: event.target.category.value
 				}
-				this.tasks.unshift(newTask);
+				this.posts.unshift(newPost);
 			} else if(event.target.type.value === 'edit') {
-				var newTasks = this.tasks.map(function(task){
-					if(task.id == event.target.id.value){
-						var newTask = {
+				var newPosts = this.posts.map(function(post){
+					if(post.id == event.target.id.value){
+						var newPost = {
 							id: event.target.id.value,
 							title: event.target.title.value,
 							client: event.target.client.value,
@@ -540,16 +631,16 @@ var vm = new Vue({
 							content: event.target.content.value,
 							category: event.target.category.value
 						}
-						return newTask;
+						return newPost;
 					} else {
-						return task;
+						return post;
 					}
 				});
-				this.tasks = newTasks;
+				this.posts = newPosts;
 			}
 			this.saveToStorage();
 		},
-		addTaskSet: function(targetFormId){
+		addPostSet: function(targetFormId){
 			var element = document.getElementById(targetFormId);
 			element.id.value = '';
 			element.title.value = '';
@@ -557,44 +648,44 @@ var vm = new Vue({
 			element.content.value = '';
 			element.type.value = 'add';
 		},
-		editTaskSet: function(targetId, targetFormId){
+		editPostSet: function(targetId, targetFormId){
 			var element = document.getElementById(targetFormId);
-			var targetTask = this.tasks.map(function(task){
-				if(task.id === targetId){
-					element.id.value = task.id;
-					element.title.value = task.title;
-					element.client.value = task.client;
-					element.date.value = task.date;
-					element.content.value = task.content;
-					element.category.value = task.category;
+			var targetTask = this.posts.map(function(post){
+				if(post.id === targetId){
+					element.id.value = post.id;
+					element.title.value = post.title;
+					element.client.value = post.client;
+					element.date.value = post.date;
+					element.content.value = post.content;
+					element.category.value = post.category;
 					element.type.value = 'edit';
 				}
 			});
 		},
-		changeTask: function(targetId, changeTarget){
-			var changedTask = this.tasks.map(function(task){
-				if(task.id === targetId){
-					task.category = changeTarget;
+		changePost: function(targetId, changeTarget){
+			var changedPost = this.posts.map(function(post){
+				if(post.id === targetId){
+					post.category = changeTarget;
 				}
-				return task;
+				return post;
 			});
-			this.tasks = changedTask;
+			this.posts = changedPost;
 			this.saveToStorage();
 		},
-		deleteTask: function(targetId){
-			var deletedTask = this.tasks.filter(function(task){
-				if(task.id !== targetId) return true;
+		deletePost: function(targetId){
+			var deletedPost = this.posts.filter(function(post){
+				if(post.id !== targetId) return true;
 			});
 			if(window.confirm('消すで？')){
-				this.tasks = deletedTask;
+				this.posts = deletedPost;
 				this.saveToStorage();
 			}
 		},
 		saveToStorage: function(){
-			localStorage.setItem('tasks', JSON.stringify(this.tasks));
+			localStorage.setItem('posts', JSON.stringify(this.posts));
 		},
 		backUpStorage: function() {
-			var thisStorage = localStorage.getItem('tasks');
+			var thisStorage = localStorage.getItem('posts');
 			var blob = new Blob([thisStorage], {type: "text/plain"});
 			if(window.navigator.msSaveBlob){
 				// IEなら独自関数を使います。
@@ -609,8 +700,8 @@ var vm = new Vue({
 		}
 	},
 	mounted: function(){
-		this.tasks = JSON.parse(localStorage.getItem('tasks'));
-		if(!this.tasks) this.tasks = [];
+		this.posts = JSON.parse(localStorage.getItem('posts'));
+		if(!this.posts) this.posts = [];
 	}
 });
 </script>
