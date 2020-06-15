@@ -17,11 +17,13 @@ body {
 	text-justify: inter-ideograph;
 	text-align: justify;
 }
-a{color:#38b5cb}
+a {
+	color: #38b5cb;
+}
 #wrap {
 	position: relative;
 }
-nav{
+nav {
 	width: 200px;
 	height: 100vh;
 	position: fixed;
@@ -32,23 +34,23 @@ nav{
 	font-family: 'Belleza', sans-serif;
 }
 @media screen and (max-width: 767px) {
-	nav{
+	nav {
 		width: 100vw;
 		height: auto;
 		position: relative;
 		text-align: center;
 	}
-	nav li{
+	nav li {
 		display: inline-block;
 	}
 }
-nav h1{
+nav h1 {
 	text-align: center;
 	font-size: 54px;
 	text-shadow: 1px 1px 1px #292929, 0px 0px 10px #a9a9a9;
 	margin-bottom: 20px;
 }
-nav a{
+nav a {
 	color: #f9f9f9;
 	text-decoration: none;
 	padding: 10px 20px;
@@ -58,49 +60,50 @@ nav a{
 	text-shadow: 1px 1px 1px #101010;
 }
 @media screen and (max-width: 767px) {
-	nav a{
+	nav a {
 		padding: 10px;
 	}
 }
 
-#nav-quotes:hover, .router-link-exact-active #nav-quotes, .current #nav-quotes{
+#nav-quotes:hover, .router-link-exact-active #nav-quotes, .current #nav-quotes {
 	border-right: 5px solid #17b4d5;
 }
-#nav-tasks:hover, .router-link-exact-active #nav-tasks, .current #nav-tasks{
+#nav-tasks:hover, .router-link-exact-active #nav-tasks, .current #nav-tasks {
 	border-right: 5px solid #09cd49;
 }
-#nav-receipts:hover, .router-link-exact-active #nav-receipts, .current #nav-receipts{
+#nav-receipts:hover, .router-link-exact-active #nav-receipts, .current #nav-receipts {
 	border-right: 5px solid #b4d517;
 }
-#nav-monthly:hover, .router-link-exact-active #nav-monthly, .current #nav-monthly{
+#nav-monthly:hover, .router-link-exact-active #nav-monthly, .current #nav-monthly {
 	border-right: 5px solid #d65718;
 }
-#nav-backup:hover{
+#nav-backup:hover {
 	border-right: 5px solid #d41515;
 }
 @media screen and (max-width: 767px) {
-	#nav-quotes:hover, .router-link-exact-active #nav-quotes, .current #nav-quotes{
+	#nav-quotes:hover, .router-link-exact-active #nav-quotes, .current #nav-quotes {
 		border-right: none;
 		padding-bottom: 5px;
 		border-bottom: 5px solid #17b4d5;
 	}
-	#nav-tasks:hover, .router-link-exact-active #nav-tasks, .current #nav-tasks{
+	#nav-tasks:hover, .router-link-exact-active #nav-tasks, .current #nav-tasks {
 		border-right: none;
 		padding-bottom: 5px;
 		border-bottom: 5px solid #09cd49;
 	}
-	#nav-receipts:hover, .router-link-exact-active #nav-receipts, .current #nav-receipts{
+	#nav-receipts:hover, .router-link-exact-active #nav-receipts, .current #nav-receipts {
 		border-right: none;
 		padding-bottom: 5px;
 		border-bottom: 5px solid #b4d517;
 	}
-	#nav-monthly:hover, .router-link-exact-active #nav-monthly, .current #nav-monthly{
+	#nav-monthly:hover, .router-link-exact-active #nav-monthly, .current #nav-monthly {
 		border-right: none;
 		padding-bottom: 5px;
 		border-bottom: 5px solid #d41515;
 	}
 }
-article{
+
+article {
 	width: calc(100vw - 220px);
 	position: relative;
 	left: 200px;
@@ -108,43 +111,43 @@ article{
 	padding: 20px;
 }
 @media screen and (max-width: 767px) {
-	article{
+	article {
 		width: 100vw;
 		left: 0;
 		top: 0;
 	}
 }
-article header h2{
+article header h2 {
 	font-size: 36px;
 	letter-spacing: 2px;
 	font-family: 'Belleza', sans-serif;
 	padding-bottom: 5px;
 	line-height: 1;
 }
-#section-quotes h2{
+#section-quotes h2 {
 	border-bottom: 2px solid #17b4d5;
 }
-#section-tasks h2{
+#section-tasks h2 {
 	border-bottom: 2px solid #09cd49;
 }
-#section-receipts h2{
+#section-receipts h2 {
 	border-bottom: 2px solid #b4d517;
 }
-#section-monthly h2{
+#section-monthly h2 {
 	border-bottom: 2px solid #d41515;
 }
-article header{
+article header {
 	margin-bottom: 10px;
 }
-article header ul{
+article header ul {
 	font-size: 0;
 	text-align: right;
 	margin-top: 5px;
 }
-article header li{
+article header li {
 	display: inline-block;
 }
-article header li label{
+article header li label {
 	font-size: 12px;
 	display: block;
 	margin-left: 5px;
@@ -154,27 +157,27 @@ article header li label{
 	text-decoration: none;
 	cursor: pointer;
 }
-article header li label:hover{
+article header li label:hover {
 	color: #fff;
 	opacity: .7;
 }
-#section-quotes header li label{
+#section-quotes header li label {
 	background-color: #17b4d5;
 }
-#section-tasks header li label{
+#section-tasks header li label {
 	background-color: #09cd49;
 }
-#section-receipts header li label{
+#section-receipts header li label {
 	background-color: #b4d517;
 }
-#section-monthly header li label{
+#section-monthly header li label {
 	background-color: #d41515;
 }
 
-article section{
+article section {
 	margin-bottom: 20px;
 }
-article section > div{
+article section > div {
 	border: 1px solid #dbdbdb;
 	background-color: #fff;
 	padding: 20px;
@@ -182,45 +185,44 @@ article section > div{
 	border-radius: 6px;
 	white-space: pre-line;
 }
-article section > div h3{
+article section > div h3 {
 	font-size: 20px;
 	margin-bottom: 5px;
 	padding-left: 10px;
 	line-height: 1.2;
 }
-#section-quotes > div h3{
+#section-quotes > div h3 {
 	border-left: 5px solid #17b4d5;
 }
-#section-tasks > div h3{
+#section-tasks > div h3 {
 	border-left: 5px solid #09cd49;
 }
-#section-receipts > div h3{
+#section-receipts > div h3 {
 	border-left: 5px solid #b4d517;
 }
-#section-monthly > div h3{
+#section-monthly > div h3 {
 	border-left: 5px solid #d41515;
 }
-article section > div > p{
+article section > div > p {
 	font-size: 12px;
 	color: #818181;
 	margin-bottom: 15px;
 }
-article section > div > p span{
+article section > div > p span {
 	margin-right: 10px;
 }
-
-section aside{
+section aside {
 	margin-top: 10px;
 }
-section aside ul{
+section aside ul {
 	font-size: 0;
 	text-align: right;
 	margin-top: 5px;
 }
-section aside li{
+section aside li {
 	display: inline-block;
 }
-section aside li a, section aside li label{
+section aside li a, section aside li label {
 	font-size: 12px;
 	display: block;
 	margin: 0 0 5px 5px;
@@ -230,35 +232,32 @@ section aside li a, section aside li label{
 	text-decoration: none;
 	cursor: pointer;
 }
-section aside li a:hover, section aside li label:hover{
+section aside li a:hover, section aside li label:hover {
 	color: #fff;
 	opacity: .7;
 }
-#section-quotes aside li a, #section-quotes aside li label{
+#section-quotes aside li a, #section-quotes aside li label {
 	background-color: #17b4d5;
 }
-#section-tasks aside li a, #section-tasks aside li label{
+#section-tasks aside li a, #section-tasks aside li label {
 	background-color: #09cd49;
 }
-#section-receipts aside li a, #section-receipts aside li label{
+#section-receipts aside li a, #section-receipts aside li label {
 	background-color: #b4d517;
 }
-#section-monthly aside li a, #section-monthly aside li label{
+#section-monthly aside li a, #section-monthly aside li label {
 	background-color: #d41515;
 }
 
-footer{
+footer {
 	text-align: center;
 }
 
-
-
-/* form */
 .form-wrap {
 	width: 100%;
 	display: block;
 }
-.form-wrap > div{
+.form-wrap > div {
 	margin-bottom: 20px;
 }
 .form-wrap input[type="text"], .form-wrap input[type="date"], .form-wrap input[type="select"], .form-wrap textarea {
@@ -268,24 +267,20 @@ footer{
 	border: 1px solid #dbdbdb;
 	border-radius: 6px;
 }
-.form-wrap input[type="submit"]{
+.form-wrap input[type="submit"] {
 	padding: 5px 20px;
 	cursor: pointer;
 }
-.form-wrap > div{
+.form-wrap > div {
 	margin-bottom: 20px;
 }
 
-
-
-/* modal */
 .modal-wrap input[type='checkbox'] {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
 	display: none;
 }
-
 .modal-wrap .toggle-on:checked {
 	position: fixed;
 	overflow-y: auto;
@@ -687,16 +682,10 @@ var vm = new Vue({
 		backUpStorage: function() {
 			var thisStorage = localStorage.getItem('posts');
 			var blob = new Blob([thisStorage], {type: "text/plain"});
-			if(window.navigator.msSaveBlob){
-				// IEなら独自関数を使います。
-				window.navigator.msSaveBlob(blob, "ファイル名.txt");
-			} else {
-				// それ以外はaタグを利用してイベントを発火させます
-				var a = document.getElementById('nav-backup');
-				a.href = URL.createObjectURL(blob);
-				a.target = '_blank';
-				a.download = 'backUpStorage_'+moment().format('YYMMDD')+'.txt';
-			}
+			var a = document.getElementById('nav-backup');
+			a.href = URL.createObjectURL(blob);
+			a.target = '_blank';
+			a.download = 'backUpStorage_'+moment().format('YYMMDD')+'.txt';
 		}
 	},
 	mounted: function(){
